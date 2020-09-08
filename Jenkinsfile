@@ -20,7 +20,7 @@ pipeline {
 		stage('get Google service account'){
 			steps {
 				script {
-					echo ${GSA-name}
+					echo "${GSA-name}"
 					sleep 5
 				}
 			}
@@ -29,7 +29,7 @@ pipeline {
 		stage('get k8s service account'){
 			steps {
 				script {
-					echo ${KSA-name}
+					echo "${KSA-name}"
 					sleep 5
 				}
 			}
@@ -38,7 +38,7 @@ pipeline {
 		stage('get k8s namespace'){
 			steps {
 				script {
-					echo ${Namespace}
+					echo "${Namespace}"
 					sleep 5	
 				}
 			}
