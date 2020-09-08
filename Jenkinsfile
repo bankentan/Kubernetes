@@ -1,7 +1,5 @@
 pipeline {
-	agent {
-		node()
-	}
+	agent {}
 	
 	parameters {
 		string(name: 'Cluster_Owner', description: 'Cluster Owner', trim: true)
