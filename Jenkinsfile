@@ -11,10 +11,10 @@ pipeline {
 	stages {
 		stage('GKE credentials'){
 			steps {
-				script {
+				sh (script:"""
 					echo "get GKE credentials"
 					gcloud auth list
-				}
+				""")
 			}
 		}
 		
