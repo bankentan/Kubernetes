@@ -3,8 +3,8 @@ pipeline {
 	
 	parameters {
 		string(name: 'Cluster_Owner', description: 'Cluster Owner', trim: true)
-		string(name: 'GSA-name', description: 'GCP service account', trim: true)
-		string(name: 'KSA-name', description: 'kubernetes service account', trim: true)
+		string(name: 'GSA_name', description: 'GCP service account', trim: true)
+		string(name: 'KSA_name', description: 'kubernetes service account', trim: true)
 		string(name: 'Namespace', description: 'kubernetes namespace', trim: true)
 	}
 
@@ -13,6 +13,7 @@ pipeline {
 			steps {
 				script {
 					echo "get GKE credentials"
+					sleep 5
 				}
 			}
 		}
@@ -20,7 +21,7 @@ pipeline {
 		stage('get Google service account'){
 			steps {
 				script {
-					echo "${GSA-name}"
+					echo "${GSA_name}"
 					sleep 5
 				}
 			}
@@ -29,7 +30,7 @@ pipeline {
 		stage('get k8s service account'){
 			steps {
 				script {
-					echo "${KSA-name}"
+					echo "${KSA_name}"
 					sleep 5
 				}
 			}
