@@ -29,10 +29,10 @@ pipeline {
 		
 		stage('get k8s service account'){
 			steps {
-				
-				echo "${KSA_name}"
-				sleep 5
-				
+				script {
+					echo "${KSA_name}"
+					sleep 5
+				}
 			}
 		}
 		
