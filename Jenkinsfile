@@ -1,5 +1,5 @@
 pipeline {
-	agent {}
+	agent any
 	
 	parameters {
 		string(name: 'Cluster_Owner', description: 'Cluster Owner', trim: true)
