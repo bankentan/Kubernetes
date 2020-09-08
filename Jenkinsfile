@@ -13,7 +13,7 @@ pipeline {
 			steps {
 				script {
 					echo "get GKE credentials"
-					sleep 5
+					gcloud auth list
 				}
 			}
 		}
