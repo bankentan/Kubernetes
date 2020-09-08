@@ -6,6 +6,7 @@ pipeline {
 		string(name: 'GSA_name', description: 'GCP service account', trim: true)
 		string(name: 'KSA_name', description: 'kubernetes service account', trim: true)
 		string(name: 'Namespace', description: 'kubernetes namespace', trim: true)
+		booleamParam(name: 'deploy_k8s_annotation', defaultValue: true, description: "Checked if you have GKE")
 	}
 
 	stages {
