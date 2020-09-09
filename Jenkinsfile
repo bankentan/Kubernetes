@@ -24,7 +24,7 @@ pipeline {
 				script {
 					GSA = """${sh(
 						returnStdout: true,
-						script: 'gcloud iam service-accounts describe --format="value[](${GSA_name}@bankentan-project.iam.gserviceaccount.com)"'
+						script: 'gcloud iam service-accounts describe ${GSA_name}\@bankentan-project.iam.gserviceaccount.com'
 					}""";
 				}
 				
