@@ -28,12 +28,7 @@ pipeline {
 					#kubectl describe namespace ${Namespace}
 					#kubectl describe serviceaccount ${KSA_name} --namespace ${Namespace}
 					
-					KSA=`kubectl get serviceaccount --namespace ${Namespace} |awk '{print \$1}'|grep "^${KSA_name}\$"| wc -l`
-					if [ $KSA == 1 ];then
-						echo "kube service account is in"
-					else
-						currentBuild.result = "FAILURE"
-						return
+					kubectl get serviceaccount --namespace ${Namespace} |awk '{print \$1}'|grep "^${KSA_name}\$"
 					
 				""")
 			}
