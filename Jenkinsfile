@@ -22,7 +22,7 @@ pipeline {
 		stage('get Google service account'){
 			steps {
 				sh (script:"""
-					echo "123"
+					gcloud iam service-accounts list|grep "ken"
 				""")
 			}
 		}
