@@ -23,7 +23,7 @@ pipeline {
 			steps {
 				script {
 					GSA = """${sh(
-						returnStdout: true'
+						returnStdout: true,
 						script: 'gcloud iam service-accounts list|awk '{print $1}'|grep -E "^${GSA_name}$"|wc -l').trim()
 					}""";
 				}
