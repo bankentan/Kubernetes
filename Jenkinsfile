@@ -21,9 +21,9 @@ pipeline {
 		
 		stage('get Google service account'){
 			steps {
-				script {
+				sh (script:"""
 					gcloud iam service-accounts list
-				}
+				""")
 			}
 		}
 		
