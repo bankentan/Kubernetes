@@ -23,7 +23,7 @@ pipeline {
 			steps {
 				sh (script:"""
 					#gcloud iam service-accounts list|awk '{print \$1}'|grep  ^${GSA_name}\$|wc -l
-					gcloud iam service-accounts describe ${GSA_name}\@bankentan-project.iam.gserviceaccount.com
+					gcloud iam service-accounts describe "${GSA_name}@bankentan-project.iam.gserviceaccount.com"
 				""")
 			}
 		}
