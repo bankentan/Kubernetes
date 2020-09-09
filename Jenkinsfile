@@ -22,7 +22,7 @@ pipeline {
 		stage('get Google service account'){
 			steps {
 				sh(
-					gcloud iam service-accounts describe ke-2020@bankentan-project.iam.gserviceaccount.com
+					gcloud iam service-accounts list
 				)
 			}
 		}
