@@ -27,8 +27,12 @@ pipeline {
 					#gcloud container clusters get-credentials tanyongjia-cluster --zone asia-northeast2-a
 					#kubectl describe namespace ${Namespace}
 					#kubectl describe serviceaccount ${KSA_name} --namespace ${Namespace}
+					KSA = """${sh(
+							script: 'kubectl get serviceaccount --namespace ${Namespace} |awk '{print \$1}'|grep "^${KSA_name}\$"|wc -l'
+						)
+					}"""
 					
-					kubectl get serviceaccount --namespace ${Namespace} |awk '{print \$1}'|grep "^${KSA_name}\$"
+					echo ${KSA}
 					
 				""")
 			}
