@@ -22,7 +22,7 @@ pipeline {
 		stage('get Google service account'){
 			steps {
 				sh (script:"""
-					gcloud iam service-accounts list|awk '{print \$1}'|grep  ^${GSA_name}$
+					gcloud iam service-accounts list|awk '{print \$1}'|grep  ^${GSA_name}\$
 				""")
 			}
 		}
