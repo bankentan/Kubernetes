@@ -6,7 +6,7 @@ pipeline {
 		string(name: 'GSA_name', description: 'GCP service account', trim: true)
 		string(name: 'KSA_name', description: 'kubernetes service account', trim: true)
 		string(name: 'Namespace', description: 'kubernetes namespace', trim: true)
-		booleanParam(name: 'deploy_k8s_annotation', defaultValue: true, description: "Checked if you have GKE")
+		booleamParam(name: 'deploy_k8s_annotation', defaultValue: true, description: "Checked if you have GKE")
 	}
 
 	stages {
@@ -22,9 +22,17 @@ pipeline {
 		stage('get Google service account'){
 			steps {
 				script {
-					echo "${GSA_name}"
-					sleep 5
+					GSA = """${sh(
+						returnStdout: true'
+						script: 'gcloud iam service-accounts list|awk '{print $1}'|grep -E "^${GSA_name}$"|wc -l').trim()
+					}""";
 				}
+				
+				sh(
+					script:"""
+						echo "${GSA}"
+					"""
+				)
 			}
 		}
 		
