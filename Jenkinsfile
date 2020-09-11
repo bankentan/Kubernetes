@@ -15,6 +15,7 @@ pipeline {
 				sh (script:"""
 					echo "get GKE credentials"
 					gcloud auth list
+					gcloud config list
 				""")
 			}
 		}
