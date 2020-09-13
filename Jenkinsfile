@@ -1,4 +1,6 @@
 pipeline{
+
+  agent any
   environment{
     PROJECT = "bankentan-project"
 	TARGET_ENV_FOLDER = "bankentan_dev"
