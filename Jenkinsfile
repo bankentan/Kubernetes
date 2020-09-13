@@ -3,7 +3,7 @@ pipeline{
   agent any
   environment{
     PROJECT = "bankentan-project"
-	TARGET_ENV_FOLDER = "bankentan_dev"
+	TARGET_ENV_FOLDER = "dev"
   }
   
   stages{
@@ -12,7 +12,7 @@ pipeline{
 	    dir("${WORKSPACE}/terraform/${TARGET_ENV_FOLDER}"){
 		  script{
 		    sh("pwd")
-			sh("ll")
+			sh("ls -l")
 		  }
 		}
 	  }
