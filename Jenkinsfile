@@ -7,6 +7,17 @@ pipeline{
   }
   
   stages{
+    stage("check env"){
+	  steps{
+	    dir("${WORKSPACE}/terraform/${TARGET_ENV_FOLDER}"){
+		  script{
+		    sh("pwd")
+			sh("ll")
+		  }
+		}
+	  }
+	}
+  
     stage("terraform apply"){
 	  steps{
 	    dir("${WORKSPACE}/terraform/${TARGET_ENV_FOLDER}"){
