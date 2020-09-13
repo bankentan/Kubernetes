@@ -24,7 +24,7 @@ pipeline{
           sh(script:"""
 		    terraform init -backend=true -backend-config=bucket=bankentan -backend-config=prefix=terraform/state/sa-impersonation/${TARGET_ENV_FOLDER}
 			terraform workspace select ${PROJECT} 2> /dev/null || terraform workspace new ${PROJECT}
-			terraform plan -no-color -var=gcp_project=${PROJECT} -var-file=policy-binding.tfvars
+			terraform apply -no-color -auto-approve -var=gcp_project=${PROJECT} -var-file=policy-binding.tfvars
 		  """)
 		}
 	  }
