@@ -1,60 +1,27 @@
-pipeline {
-	agent any
-	
-	parameters {
-		string(name: 'Cluster_Owner', description: 'Cluster Owner', trim: true)
-		string(name: 'GSA_name', description: 'GCP service account', trim: true)
-		string(name: 'KSA_name', description: 'kubernetes service account', trim: true)
-		string(name: 'Namespace', description: 'kubernetes namespace', trim: true)
-		booleanParam(name: 'deploy_k8s_annotation', defaultValue: true, description: "Checked if you have GKE")
+pipeline{
+  environment{
+    PROJECT = "bankentan-project"
+	TARGET_ENV_FOLDER = "bankentan_dev"
+  }
+  
+  stages{
+    stage("terraform apply"){
+	  steps{
+	    dir("${WORKSPACE}/terraform/${TARGET_ENV_FOLDER}"){
+		  script{
+		    sh("terraform init -backend=true -backend-config="bucket=bankentan" -backend-config="prefix=terraform/state/sa-impersonation/${TARGET_ENV_FOLDER}"")
+			sh("terraform workspace select ${PROJECT} 2> /dev/null || terraform workspace new ${PROJECT}")
+			sh("terraform plan -var-file=policy-binding.tfvars")
+		  }
+		}
+	  }
 	}
-
-	stages {
-		stage('GKE credentials'){
-			steps {
-				sh (script:"""
-					echo "get GKE credentials"
-					gcloud auth list
-					gcloud config list
-				""")
-			}
-		}
-		
-		stage('get Google service account'){
-			steps {
-				sh (script:"""
-					#gcloud iam service-accounts list|awk '{print \$1}'|grep  ^${GSA_name}\$|wc -l
-					#gcloud iam service-accounts describe "${GSA_name}@bankentan-project.iam.gserviceaccount.com"
-					#gcloud container clusters get-credentials tanyongjia-cluster --zone asia-northeast2-a
-					#kubectl describe namespace ${Namespace}
-					#kubectl describe serviceaccount ${KSA_name} --namespace ${Namespace}
-					KSA = """${sh(
-							script: 'kubectl get serviceaccount --namespace ${Namespace} |awk '{print \$1}'|grep "^${KSA_name}\$"|wc -l'
-						)
-					}"""
-					
-					echo ${KSA}
-					
-				""")
-			}
-		}
-		
-		stage('get k8s service account'){
-			steps {
-				script {
-					echo "${KSA_name}"
-					sleep 5
-				}
-			}
-		}
-		
-		stage('get k8s namespace'){
-			steps {
-				script {
-					echo "${Namespace}"
-					sleep 5	
-				}
-			}
-		}	
+  }
+  
+  post{
+    always{
+	  echo "Clean up the job workspace"
+	  cleanWs()
 	}
+  }
 }
