@@ -22,6 +22,8 @@ pipeline{
 	  steps{
 	    dir("${WORKSPACE}/terraform/${TARGET_ENV_FOLDER}"){
           sh(script:"""
+                    gcloud auth list
+		    gcloud config list
 		    terraform init -no-color -backend=true -backend-config=bucket=bankentan -backend-config=prefix=terraform/state/sa-impersonation/${TARGET_ENV_FOLDER}
 		    terraform workspace select ${PROJECT} 2> /dev/null || terraform workspace new ${PROJECT}
 		    terraform destroy -no-color -auto-approve -var=gcp_project=${PROJECT} -var-file=policy-binding.tfvars
