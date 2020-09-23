@@ -2,7 +2,12 @@ pipeline{
 
   agent any
   environment{
-    PROJECT = "bankentan-project"
+	  sh(script:"""
+	    if [[ ${USER} == "root" ]];then
+	    GCP_PROJECT = "huxingyi"
+	    fi
+	  """)
+        PROJECT = "bankentan-project"
 	TARGET_ENV_FOLDER = "dev"
   }
   
@@ -12,7 +17,8 @@ pipeline{
 	    dir("${WORKSPACE}/terraform/${TARGET_ENV_FOLDER}"){
 		  script{
 		    sh("pwd")
-			sh("ls -l")
+		    sh("ls -l")
+			  sh("echo ${GCP_PROJECT}")
 		  }
 		}
 	  }
